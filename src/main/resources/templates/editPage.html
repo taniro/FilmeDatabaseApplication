@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Edição de filmes</h1>
+<form th:object="${filme}" method="post" th:action="@{/processEditPage}">
+    <input type="hidden" th:field="*{id}" />
+    Título<input type="text" th:field="*{titulo}" /><br />
+    Ano Lançamento<input type="number" th:field="*{anoLancamento}" /><br />
+    Resumo<input type="text" th:field="*{resumo}" /><br />
+    Genero<input type="text" th:field="*{genero}" /><br />
+    Nota<input type="number" th:field="*{nota}" /><br />
+    <button type="submit">Cadastrar</button>
+</form>
+</body>
+</html>

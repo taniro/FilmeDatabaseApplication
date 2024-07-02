@@ -11,15 +11,15 @@ import java.util.Optional;
 public class FilmeService {
 
     private final FilmeRepository repository;
-    public FilmeService(FilmeRepository repository) {
+    public FilmeService(FilmeRepository repository){
         this.repository = repository;
     }
 
-    public Optional<Filme> findById(Long id){
+    public Optional<Filme> findById(String id){
         return repository.findById(id);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         repository.deleteById(id);
     }
 

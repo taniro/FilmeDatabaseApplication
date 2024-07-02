@@ -5,10 +5,29 @@
     <title>Filmes</title>
 </head>
 <body>
-<table>
-  <tr th:each="filme : ${filmes}" >
-    <td th:text="${filme.resumo}"></td>
+<a href="/cadastroPage">Cadastro</a> de novos filmes.
+<h1>Filmes Cadastrados</h1>
+<table style="border: 2px solid black;" >
+  <tr>
+<!--    <th>id</th>-->
+    <th>Título</th>
+    <th>Resumo</th>
+    <th>Genero</th>
+    <th>Lançamento</th>
+    <th>Nota</th>
+    <th>Editar</th>
+    <th>Deletar</th>
   </tr>
+    <tr th:each="filme : ${filmes}">
+<!--        <td th:text="${filme.id}"></td>-->
+        <td th:text="${filme.titulo}"></td>
+        <td th:text="${filme.resumo}"></td>
+        <td th:text="${filme.genero}"></td>
+        <td th:text="${filme.anoLancamento}"></td>
+        <td th:text="${filme.nota}"></td>
+        <td><a th:href="@{'/editPage/'+${filme.id}}">Editar</a></td>
+        <td><a th:href="@{'/processDelete/'+${filme.id}}">Deletar</a></td>
+    </tr>
 </table>
 </body>
 </html>
