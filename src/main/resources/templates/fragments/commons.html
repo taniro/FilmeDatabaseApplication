@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header th:fragment="header">
+    <h1> Site Importante (modificado)</h1>
+</header>
+
+<footer th:fragment="footer">
+    <h6> Rodapé do site (modificado)</h6>
+</footer>
+
+<div th:fragment="menu(username)">
+    <p th:text="${username}"></p>
+</div>
+
+<div th:fragment="statusCadastro(status)">
+    <p th:switch="${status}">
+        <span th:case="'CADASTRADO'">CADASTRADO</span>
+        <span th:case="1">ALTERADO</span>
+        <span th:case="'EXCLUIDO'">EXCLUIDO</span>
+        <span th:case="*">CANCELADO</span>
+    </p>
+</div>
+
+<div th:fragment="statusUsuario(status)">
+    <p>
+        <span th:if="${status == 'NOVO'}">Bem vindo</span>
+        <span th:unless="${status == 'NOVO'}">Voltou!</span>
+    </p>
+</div>
+
+<div th:fragment="displayNome(nome)">
+    <p th:text="${nome} ?: 'ANÔNIMO'"></p>
+</div>
+
+<div th:fragment="tabelaFilme(filmes)" class="container">
+    <table style="border: 2px solid black;">
+        <tr>
+            <!--    <th>id</th>-->
+            <th>Título</th>
+            <th>Resumo</th>
+            <th>Genero</th>
+            <th>Lançamento</th>
+            <th>Nota</th>
+            <th>Capa</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+        </tr>
+        <tr th:each="filme : ${filmes}">
+            <!--        <td th:text="${filme.id}"></td>-->
+            <td th:text="${filme.titulo}"></td>
+            <td th:text="${filme.resumo}"></td>
+            <td th:text="${filme.genero}"></td>
+            <td th:text="${filme.anoLancamento}"></td>
+            <td th:text="${filme.nota}"></td>
+            <td><img width="100px" th:src="@{'/images/' + ${filme.imageUrl}}" alt="imagem"/></td>
+            <td><a th:href="@{'/editPage/'+${filme.id}}">Editar</a></td>
+            <td><a th:href="@{'/processDelete/'+${filme.id}}">Deletar</a></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

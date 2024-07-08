@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="commons::header"></div>
 <h1>Edição de filmes</h1>
 <form th:object="${filme}" method="post" th:action="@{/processEditPage}">
     <input type="hidden" th:field="*{id}" />
@@ -15,5 +16,8 @@
     Nota<input type="number" th:field="*{nota}" /><br />
     <button type="submit">Cadastrar</button>
 </form>
+
+<div th:replace="commons::footer"></div>
+
 </body>
 </html>

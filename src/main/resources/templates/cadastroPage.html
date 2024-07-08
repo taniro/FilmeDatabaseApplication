@@ -7,13 +7,15 @@
 <body>
 
 <h1>Cadastro de filmes</h1>
-<form th:object="${filme}" method="post" th:action="@{/processCadastroPage}">
+<form th:object="${filme}" method="post" th:action="@{/processCadastroPage}" enctype="multipart/form-data">
     <input type="hidden" th:field="*{id}" />
-    Título<input type="text" th:field="*{titulo}" /><br />
+    Título<input type="text" th:field="*{titulo}" />
+    <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" style="color: red"> </span> <br />
     Ano Lançamento<input type="number" th:field="*{anoLancamento}" /><br />
     Resumo<input type="text" th:field="*{resumo}" /><br />
     Genero<input type="text" th:field="*{genero}" /><br />
     Nota<input type="number" th:field="*{nota}" /><br />
+    Imagem<input type="file" name="file" >
     <button type="submit">Cadastrar</button>
 </form>
 </body>

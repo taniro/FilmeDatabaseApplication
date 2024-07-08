@@ -21,7 +21,7 @@ public class Filme {
     String id;
 
     @Size(min = 2, max = 50, message = "Houve um erro no cadastro do campo título.")
-    @NotBlank
+    @NotBlank (message = "O título não pode conter caracteres em branco.")
     String titulo;
 
     @DecimalMin(value = "1900")
@@ -29,6 +29,7 @@ public class Filme {
     String genero;
     String resumo;
     Float nota;
+    String imageUrl;
 
     public void regrasDeNegocioParaCadastro(){
         titulo.toUpperCase();

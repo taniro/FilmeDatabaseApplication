@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ufrn.br.filmedatabaseapplication.domain.Filme;
-import ufrn.br.filmedatabaseapplication.repository.FilmeRepository;
+import ufrn.br.filmedatabaseapplication.service.FileStorageService;
 import ufrn.br.filmedatabaseapplication.service.FilmeService;
 
 import java.util.Optional;
@@ -17,8 +18,11 @@ import java.util.Optional;
 public class FilmeController {
 
     private final FilmeService service;
-    public FilmeController(FilmeService service) {
+    private final FileStorageService fileStorageService;
+
+    public FilmeController(FilmeService service, FileStorageService fileStorageService) {
         this.service = service;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping("/")
@@ -35,15 +39,20 @@ public class FilmeController {
     }
 
     @PostMapping("/processCadastroPage")
-    public String processCadastroPage(@ModelAttribute @Valid Filme f, Errors errors, RedirectAttributes redirectAttributes){
+    public ModelAndView processCadastroPage(@ModelAttribute @Valid Filme f, Errors errors, @RequestParam("file") MultipartFile file){
 
         if(errors.hasErrors()){
-            return "cadastroPage";
+            return new ModelAndView("cadastroPage");
         }
 
+        f.setImageUrl(file.getOriginalFilename());
+        fileStorageService.save(file);
+
         service.create(f);
-        redirectAttributes.addAttribute("msg", "Cadastro realizado com sucesso");
-        return "redirect:/";
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("msg", "Cadastro realizado com sucesso");
+        modelAndView.addObject("filmes", service.findAll());
+        return modelAndView;
     }
 
     @PostMapping("/processEditPage")
